@@ -22,13 +22,19 @@ public class frameReNamer {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try 
+				{
 					frameReNamer window = new frameReNamer();
 					window.frame.setVisible(true);
-				} catch (Exception e) {
+				}
+				catch (Exception e) 
+				{
 					e.printStackTrace();
 				}
 			}
@@ -44,9 +50,7 @@ public class frameReNamer {
 			count++;
 			currentNum = currentNum / 10;
 		}
-		
 		return count;
-		
 	}
 	
 	public String paddingTextCalcFunction(int padding, int currentNum)
@@ -65,7 +69,8 @@ public class frameReNamer {
 	/**
 	 * Create the application.
 	 */
-	public frameReNamer() {
+	public frameReNamer() 
+	{
 		initialize();
 	}
 
@@ -141,8 +146,10 @@ public class frameReNamer {
 		startOutputTextField.setColumns(10);
 		
 		JButton btnConvert = new JButton("Convert");
-		btnConvert.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnConvert.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				
 				boolean fail = false;
 				
@@ -160,31 +167,39 @@ public class frameReNamer {
 				int startOutput = 0;
 				
 				
-				try{
+				try
+				{
 					padding = Integer.parseInt(paddingText);   
 				}
-				catch(NumberFormatException ex){
+				catch(NumberFormatException ex)
+				{
 					lblExCtmpfilepng.setText("Ilegal padding input");
 					fail = true;
 				}
-				try{
+				try
+				{
 					startInput = Integer.parseInt(startInputText);   
 				}
-				catch(NumberFormatException ex){
+				catch(NumberFormatException ex)
+				{
 					lblExCtmpfilepng.setText("Ilegal Starting input input");
 					fail = true;
 				}
-				try{
+				try
+				{
 					endInput = Integer.parseInt(endInputText);   
 				}
-				catch(NumberFormatException ex){
+				catch(NumberFormatException ex)
+				{
 					lblExCtmpfilepng.setText("Ilegal Ending input input");
 					fail = true;
 				}
-				try{
+				try
+				{
 					startOutput = Integer.parseInt(startOutputText);   
 				}
-				catch(NumberFormatException ex){
+				catch(NumberFormatException ex)
+				{
 					lblExCtmpfilepng.setText("Ilegal Starting output input");
 					fail = true;
 				}  
@@ -194,10 +209,8 @@ public class frameReNamer {
 				
 				if (!fail)
 				{
-					
 					//continue with program
 					//check if file is there
-
 					//convert padding
 					
 					String paddingTextCalc = paddingTextCalcFunction(padding, 1);
@@ -290,21 +303,19 @@ public class frameReNamer {
 		helpMain.add(about);
 		//helpMain.add(help);
 		
-		class exitAction implements ActionListener{
-			
-			public void actionPerformed (ActionEvent e){
-				
+		class exitAction implements ActionListener
+		{
+			public void actionPerformed (ActionEvent e)
+			{
 				System.exit(0);
-				
 			}
 		}
-		
 		exit.addActionListener(new exitAction());
 		
-		class aboutAction implements ActionListener{
-			
-			public void actionPerformed(ActionEvent e){
-				
+		class aboutAction implements ActionListener
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				JOptionPane.showMessageDialog(frame,"File Re-namer V1.0 \nProgram by Matt Reishman \nLast update: 3/29/2015");				
 			}			
 		}
