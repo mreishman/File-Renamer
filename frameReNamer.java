@@ -3,6 +3,7 @@ package fileReNamer;
 import java.awt.EventQueue;
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.io.File;
 
@@ -72,6 +73,130 @@ public class frameReNamer {
 	public frameReNamer() 
 	{
 		initialize();
+	}
+	
+	public void createInterfaceOne()
+	{
+		
+	}
+	
+	public void buttonConvertAction(ActionEvent e) 
+	{
+		
+		boolean fail = false;
+		
+		//Test vars
+		String fileLocation = fileLocationTextField.getText();
+		String fileName = fileNameTextField.getText();
+		String paddingText = paddingTextField.getText();
+		String fileExt = extTextField.getText();
+		String startInputText = startInputTextField.getText();
+		String endInputText = endInputTextField.getText();
+		String startOutputText = startOutputTextField.getText();
+		int padding = 0;
+		int startInput = 0;
+		int endInput = 0;
+		int startOutput = 0;
+		
+		
+		try
+		{
+			padding = Integer.parseInt(paddingText);   
+		}
+		catch(NumberFormatException ex)
+		{
+			lblExCtmpfilepng.setText("Ilegal padding input");
+			fail = true;
+		}
+		try
+		{
+			startInput = Integer.parseInt(startInputText);   
+		}
+		catch(NumberFormatException ex)
+		{
+			lblExCtmpfilepng.setText("Ilegal Starting input input");
+			fail = true;
+		}
+		try
+		{
+			endInput = Integer.parseInt(endInputText);   
+		}
+		catch(NumberFormatException ex)
+		{
+			lblExCtmpfilepng.setText("Ilegal Ending input input");
+			fail = true;
+		}
+		try
+		{
+			startOutput = Integer.parseInt(startOutputText);   
+		}
+		catch(NumberFormatException ex)
+		{
+			lblExCtmpfilepng.setText("Ilegal Starting output input");
+			fail = true;
+		}  
+		
+		//output file name and path
+		//System.out.println(fileLocation + fileName + padding + startInput + endInput + startOutput + fileExt + fail);				
+		
+		if (!fail)
+		{
+			//continue with program
+			//check if file is there
+			//convert padding
+			
+			String paddingTextCalc = paddingTextCalcFunction(padding, 1);
+			String paddingTextCalc2 = "";
+			//paddintTextCalc();
+			File f = null;
+			f = new File(fileLocation + fileName + paddingTextCalc + startInput + fileExt);
+			if (f.exists() && !f.isDirectory())
+			{
+				//Continue with program
+				//set up counting vars
+				int outputNum = startOutput;
+				for (int i = 1; i < endInput + 1; i++)
+				{
+					paddingTextCalc = paddingTextCalcFunction(padding, i);
+					f = null;
+					f = new File(fileLocation + fileName + paddingTextCalc + i + fileExt);
+					if (f.exists() && !f.isDirectory())
+					{
+						paddingTextCalc2 = paddingTextCalcFunction(padding, outputNum);
+						f = null;
+						f = new File(fileLocation + fileName + paddingTextCalc + outputNum + fileExt);
+						if (f.exists() && !f.isDirectory())
+						{
+							lblExCtmpfilepng.setText("Current File" + i + "/" + endInput);
+							outputNum++;
+							//System.out.println("Both files exist");
+						}
+						else
+						{
+							//rename file
+							//set locations of both files
+							File file1 = new File(fileLocation + fileName + paddingTextCalc + i + fileExt);
+							File file2 = new File(fileLocation + fileName + paddingTextCalc2 + outputNum + fileExt);				
+							
+							//rename files
+							
+							file1.renameTo(file2);
+							//System.out.println("file renamed");
+							
+							lblExCtmpfilepng.setText("Current File" + i + "/" + endInput);
+							//System.out.println(i + "--> " + (outputNum));
+							outputNum++;
+						}
+					}	
+				}
+				lblExCtmpfilepng.setText("Ex:  /tmp/file001.png  to file012.png");				
+			}
+			else
+			{
+				lblExCtmpfilepng.setText("Could not find file and or location of file");
+			}
+		}
+		//Check file location and name to see if there is a file there that matches
 	}
 
 	/**
@@ -148,123 +273,10 @@ public class frameReNamer {
 		JButton btnConvert = new JButton("Convert");
 		btnConvert.addActionListener(new ActionListener() 
 		{
-			public void actionPerformed(ActionEvent e) 
-			{
+
+			public void actionPerformed(ActionEvent e) {
+				buttonConvertAction(e) ;
 				
-				boolean fail = false;
-				
-				//Test vars
-				String fileLocation = fileLocationTextField.getText();
-				String fileName = fileNameTextField.getText();
-				String paddingText = paddingTextField.getText();
-				String fileExt = extTextField.getText();
-				String startInputText = startInputTextField.getText();
-				String endInputText = endInputTextField.getText();
-				String startOutputText = startOutputTextField.getText();
-				int padding = 0;
-				int startInput = 0;
-				int endInput = 0;
-				int startOutput = 0;
-				
-				
-				try
-				{
-					padding = Integer.parseInt(paddingText);   
-				}
-				catch(NumberFormatException ex)
-				{
-					lblExCtmpfilepng.setText("Ilegal padding input");
-					fail = true;
-				}
-				try
-				{
-					startInput = Integer.parseInt(startInputText);   
-				}
-				catch(NumberFormatException ex)
-				{
-					lblExCtmpfilepng.setText("Ilegal Starting input input");
-					fail = true;
-				}
-				try
-				{
-					endInput = Integer.parseInt(endInputText);   
-				}
-				catch(NumberFormatException ex)
-				{
-					lblExCtmpfilepng.setText("Ilegal Ending input input");
-					fail = true;
-				}
-				try
-				{
-					startOutput = Integer.parseInt(startOutputText);   
-				}
-				catch(NumberFormatException ex)
-				{
-					lblExCtmpfilepng.setText("Ilegal Starting output input");
-					fail = true;
-				}  
-				
-				//output file name and path
-				//System.out.println(fileLocation + fileName + padding + startInput + endInput + startOutput + fileExt + fail);				
-				
-				if (!fail)
-				{
-					//continue with program
-					//check if file is there
-					//convert padding
-					
-					String paddingTextCalc = paddingTextCalcFunction(padding, 1);
-					String paddingTextCalc2 = "";
-					//paddintTextCalc();
-					File f = null;
-					f = new File(fileLocation + fileName + paddingTextCalc + startInput + fileExt);
-					if (f.exists() && !f.isDirectory())
-					{
-						//Continue with program
-						//set up counting vars
-						int outputNum = startOutput;
-						for (int i = 1; i < endInput + 1; i++)
-						{
-							paddingTextCalc = paddingTextCalcFunction(padding, i);
-							f = null;
-							f = new File(fileLocation + fileName + paddingTextCalc + i + fileExt);
-							if (f.exists() && !f.isDirectory())
-							{
-								paddingTextCalc2 = paddingTextCalcFunction(padding, outputNum);
-								f = null;
-								f = new File(fileLocation + fileName + paddingTextCalc + outputNum + fileExt);
-								if (f.exists() && !f.isDirectory())
-								{
-									lblExCtmpfilepng.setText("Current File" + i + "/" + endInput);
-									outputNum++;
-									//System.out.println("Both files exist");
-								}
-								else
-								{
-									//rename file
-									//set locations of both files
-									File file1 = new File(fileLocation + fileName + paddingTextCalc + i + fileExt);
-									File file2 = new File(fileLocation + fileName + paddingTextCalc2 + outputNum + fileExt);				
-									
-									//rename files
-									
-									file1.renameTo(file2);
-									//System.out.println("file renamed");
-									
-									lblExCtmpfilepng.setText("Current File" + i + "/" + endInput);
-									//System.out.println(i + "--> " + (outputNum));
-									outputNum++;
-								}
-							}	
-						}
-						lblExCtmpfilepng.setText("Ex:  /tmp/file001.png  to file012.png");				
-					}
-					else
-					{
-						lblExCtmpfilepng.setText("Could not find file and or location of file");
-					}
-				}
-				//Check file location and name to see if there is a file there that matches
 			}
 		});
 		btnConvert.setBounds(190, 226, 90, 29);
