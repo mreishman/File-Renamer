@@ -198,18 +198,9 @@ public class frameReNamer {
 		}
 		//Check file location and name to see if there is a file there that matches
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 485, 389);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setTitle("Text Re-Namer");
-		
+	
+	public void createSceneOne(JFrame frame)
+	{
 		JLabel lblFileName = new JLabel("File Name:");
 		lblFileName.setBounds(6, 112, 73, 16);
 		frame.getContentPane().add(lblFileName);
@@ -295,6 +286,20 @@ public class frameReNamer {
 		lblExCtmpfilepng = new JLabel("Ex:  /tmp/file001.png  to file012.png");
 		lblExCtmpfilepng.setBounds(91, 27, 270, 16);
 		frame.getContentPane().add(lblExCtmpfilepng);
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 485, 389);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
+		frame.setTitle("Text Re-Namer");
+		
+		createSceneOne(frame);
 		
 		JMenuBar menuBar = new JMenuBar();
 		
@@ -302,18 +307,23 @@ public class frameReNamer {
 		
 		JMenu file = new JMenu("File");
 		JMenu helpMain = new JMenu("Help");
+		//JMenu modeMain = new JMenu("Mode");
 		
 		menuBar.add(file);
 		menuBar.add(helpMain);
+		//menuBar.add(modeMain);
 		
 		JMenuItem exit = new JMenuItem("Exit");
 		
 		JMenuItem about = new JMenuItem("About");
 		//JMenuItem help = new JMenuItem("Help");
 		
+		//JMenuItem mode = new JMenuItem("Switch Mode");
+		
 		file.add(exit);
 		helpMain.add(about);
 		//helpMain.add(help);
+		//modeMain.add(mode);
 		
 		class exitAction implements ActionListener
 		{
