@@ -184,10 +184,13 @@ public class frameReNamer {
 	{
 		String ignoreFolderString = ignoreFolderTextField.getText();
 		
-		
-		if(Arrays.asList(ignoreFolders).contains(ignoreFolderString))
+		for(int i = 0; i < ignoreFolders.size(); i++)
 		{
-			ignoreFolders.remove(ignoreFolderString); 
+			if(ignoreFolders.get(i).equals(ignoreFolderString))
+			{
+				ignoreFolders.remove(ignoreFolderString); 
+				System.out.println(ignoreFolderString + " Removed");
+			}
 		}
 	}
 	
@@ -196,6 +199,7 @@ public class frameReNamer {
 		String ignoreFolderString = ignoreFolderTextField.getText();
 		
 		ignoreFolders.add(ignoreFolderString);
+		System.out.println(ignoreFolderString + " Added");
 	}
 	
 	public void viewFolderInIgnore(ActionEvent e)
@@ -207,10 +211,13 @@ public class frameReNamer {
 	{
 		String ignoreFileString = ignoreFileTextField.getText();
 		
-		
-		if(Arrays.asList(ignoreFiles).contains(ignoreFileString))
+		for(int i = 0; i < ignoreFiles.size(); i++)
 		{
-			ignoreFiles.remove(ignoreFileString); 
+			if(ignoreFiles.get(i).equals(ignoreFileString))
+			{
+				ignoreFiles.remove(ignoreFileString); 
+				System.out.println(ignoreFileString + " Removed");
+			}
 		}
 	}
 	
@@ -219,6 +226,7 @@ public class frameReNamer {
 		String ignoreFileString = ignoreFileTextField.getText();
 		
 		ignoreFiles.add(ignoreFileString);
+		System.out.println(ignoreFileString + " Added");
 	}
 	
 	public void viewFileInIgnore(ActionEvent e)
@@ -529,7 +537,7 @@ public class frameReNamer {
 		{
 
 			public void actionPerformed(ActionEvent e) {
-				addFolderToIgnore(e) ;
+				addFileToIgnore(e) ;
 				
 			}
 		});
@@ -541,7 +549,7 @@ public class frameReNamer {
 		{
 
 			public void actionPerformed(ActionEvent e) {
-				removeFolderFromIgnore(e) ;
+				removeFileFromIgnore(e) ;
 				
 			}
 		});
