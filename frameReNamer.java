@@ -83,13 +83,59 @@ public class frameReNamer {
 		initialize();
 	}
 	
+	public void listFilesForFolder(final File folder) 
+	{
+	    for (final File fileEntry : folder.listFiles()) 
+	    {
+	        if (fileEntry.isDirectory() && !Arrays.asList(ignoreFolders).contains(fileEntry)) 
+	        {
+	            listFilesForFolder(fileEntry);
+	        }
+	        else 
+	        {
+	        	String filename = fileEntry.getName();getClass();
+	        	String fileIgnore = ".DS_Store";
+	        	
+	        	if(!Arrays.asList(ignoreFiles).contains(filename) && !filename.equals(fileIgnore));
+	        	{
+	        		System.out.println(filename);
+	        	}
+	        }
+	    }
+	}
+	
 	public void buttonConvertDirAction(ActionEvent e)
 	{
-		boolean fail = false;
 		
 		//vars
 		
-		String folderLocation = folderLocationTextField.getText();
+		String folderInputLocation = folderLocationTextField.getText();
+		String folderOutputLocation = folderOutputTextField.getText();
+		
+		File folderInput = null;
+		folderInput = new File(folderInputLocation);
+		
+		File folderOutput = null;
+		folderOutput = new File(folderOutputLocation);
+		
+		
+		if ((folderInput.exists() && folderInput.isDirectory()) && (folderOutput.exists() && folderOutput.isDirectory()))
+		{
+			listFilesForFolder(folderInput);
+		}
+		else
+		{
+			if(folderOutput.exists() && folderOutput.isDirectory())
+			{
+				lblExCtmpfilepng.setText("Could not find output folder");
+			}
+			else
+			{
+				lblExCtmpfilepng.setText("Could not find input folder");
+			}
+			
+		}
+			
 	}
 	
 	public void removeFolderFromIgnore(ActionEvent e)
