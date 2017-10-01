@@ -75,6 +75,21 @@ public class frameReNamer {
 		initialize();
 	}
 	
+	public void buttonConvertDirAction(ActionEvent e)
+	{
+		
+	}
+	
+	public void removeFolderFromIgnore(ActionEvent e)
+	{
+		
+	}
+	
+	public void addFolderToIgnore(ActionEvent e)
+	{
+		
+	}
+	
 	public void buttonConvertAction(ActionEvent e) 
 	{
 		
@@ -195,11 +210,7 @@ public class frameReNamer {
 	}
 	
 	public void createSceneOne(JFrame frame)
-	{
-		
-		final JPanel panel = new JPanel();
-		frame.add(panel);
-		
+	{		
 		JLabel lblFileName = new JLabel("File Name:");
 		lblFileName.setBounds(6, 112, 73, 16);
 		frame.getContentPane().add(lblFileName);
@@ -283,12 +294,95 @@ public class frameReNamer {
 		frame.getContentPane().add(lblFileLocation);
 		
 		lblExCtmpfilepng = new JLabel("Ex:  /tmp/file001.png  to file012.png");
-		lblExCtmpfilepng.setBounds(91, 27, 270, 16);
+		lblExCtmpfilepng.setBounds(6, 27, 450, 16);
 		frame.getContentPane().add(lblExCtmpfilepng);
 	}
 	
 	public void createSceneTwo(JFrame frame)
 	{
+		fileLocationTextField = new JTextField();
+		fileLocationTextField.setText("/tmp/");
+		fileLocationTextField.setBounds(120, 66, 350, 28);
+		frame.getContentPane().add(fileLocationTextField);
+		fileLocationTextField.setColumns(10);
+		
+		lblFileLocation = new JLabel("Folder Location:");
+		lblFileLocation.setBounds(6, 72, 120, 16);
+		frame.getContentPane().add(lblFileLocation);
+		
+		lblExCtmpfilepng = new JLabel("Ex:  /tmp/main/file001.png  to /output/main_file001.png");
+		lblExCtmpfilepng.setBounds(6, 27, 450, 16);
+		frame.getContentPane().add(lblExCtmpfilepng);
+		
+		JLabel lblFileName = new JLabel("Dir. Indicator:");
+		lblFileName.setBounds(6, 112, 120, 16);
+		frame.getContentPane().add(lblFileName);
+		
+		fileNameTextField = new JTextField();
+		fileNameTextField.setText("/");
+		fileNameTextField.setBounds(120, 106, 134, 28);
+		frame.getContentPane().add(fileNameTextField);
+		fileNameTextField.setColumns(10);
+		
+		
+		paddingTextField = new JTextField();
+		paddingTextField.setText("_");
+		paddingTextField.setBounds(120, 146, 134, 28);
+		frame.getContentPane().add(paddingTextField);
+		paddingTextField.setColumns(10);
+		
+		JLabel lblPadding = new JLabel("Dir Replace Char.");
+		lblPadding.setBounds(6, 152, 120, 16);
+		frame.getContentPane().add(lblPadding);
+		
+		
+		
+		extTextField = new JTextField();
+		extTextField.setText(".git");
+		extTextField.setBounds(120, 186, 134, 28);
+		frame.getContentPane().add(extTextField);
+		extTextField.setColumns(10);
+		
+		JLabel lblExt = new JLabel("Folder ignore:");
+		lblExt.setBounds(6, 192, 120, 16);
+		frame.getContentPane().add(lblExt);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				addFolderToIgnore(e) ;
+				
+			}
+		});
+		btnAdd.setBounds(251, 186, 90, 29);
+		frame.getContentPane().add(btnAdd);
+		
+		JButton btnRemove = new JButton("Remove");
+		btnRemove.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				removeFolderFromIgnore(e) ;
+				
+			}
+		});
+		btnRemove.setBounds(335, 186, 90, 29);
+		frame.getContentPane().add(btnRemove);
+		
+		
+		JButton btnConvert = new JButton("Convert");
+		btnConvert.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				buttonConvertDirAction(e) ;
+				
+			}
+		});
+		btnConvert.setBounds(190, 226, 90, 29);
+		frame.getContentPane().add(btnConvert);
 		
 	}
 	
@@ -308,6 +402,9 @@ public class frameReNamer {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setTitle("Text Re-Namer");
+		
+		final JPanel panel = new JPanel();
+		frame.add(panel);
 		
 		createSceneOne(frame);
 		
@@ -348,7 +445,7 @@ public class frameReNamer {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				JOptionPane.showMessageDialog(frame,"File Re-namer V1.0 \nProgram by Matt Reishman \nLast update: 3/29/2015");				
+				JOptionPane.showMessageDialog(frame,"File Re-namer V2.0 \nProgram by Matt Reishman \nLast update: 9/30/2017");				
 			}			
 		}
 		about.addActionListener(new aboutAction());
