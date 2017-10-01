@@ -32,6 +32,7 @@ public class frameReNamer {
 	private int modeValue = 1;
 	private ArrayList<String> ignoreFiles = new ArrayList<String>();
 	private ArrayList<String> ignoreFolders = new ArrayList<String>();
+	private ArrayList<String> ignoreFileType = new ArrayList<String>();
 	
 	/**
 	 * Launch the application.
@@ -502,19 +503,18 @@ public class frameReNamer {
 		
 		directoryIndicatorTextField = new JTextField();
 		directoryIndicatorTextField.setText("/");
-		directoryIndicatorTextField.setBounds(120, 106, 134, 28);
+		directoryIndicatorTextField.setBounds(120, 106, 80, 28);
 		frame.getContentPane().add(directoryIndicatorTextField);
 		directoryIndicatorTextField.setColumns(10);
 		
-		
 		dirReplaceCharTextField = new JTextField();
 		dirReplaceCharTextField.setText("_");
-		dirReplaceCharTextField.setBounds(120, 146, 134, 28);
+		dirReplaceCharTextField.setBounds(390, 106, 80, 28);
 		frame.getContentPane().add(dirReplaceCharTextField);
 		dirReplaceCharTextField.setColumns(10);
 		
 		JLabel lblPadding = new JLabel("Dir Replace Char.");
-		lblPadding.setBounds(6, 152, 120, 16);
+		lblPadding.setBounds(264, 112, 120, 16);
 		frame.getContentPane().add(lblPadding);
 		
 		
