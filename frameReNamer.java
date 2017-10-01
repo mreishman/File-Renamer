@@ -75,11 +75,6 @@ public class frameReNamer {
 		initialize();
 	}
 	
-	public void createInterfaceOne()
-	{
-		
-	}
-	
 	public void buttonConvertAction(ActionEvent e) 
 	{
 		
