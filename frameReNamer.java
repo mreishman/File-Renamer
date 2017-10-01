@@ -6,20 +6,28 @@ import javax.swing.*;
 
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class frameReNamer {
 
 	private JFrame frame;
 	private JTextField fileNameTextField;
+	private JTextField folderLocationTextField;
 	private JTextField paddingTextField;
 	private JTextField extTextField;
+	private JTextField ignoreFolderTextField;
+	private JTextField ignoreFileTextField;
 	private JTextField startInputTextField;
 	private JTextField endInputTextField;
 	private JTextField startOutputTextField;
 	private JTextField fileLocationTextField;
-	private JLabel lblFileLocation;
+	private JTextField folderOutputTextField;
 	private JLabel lblExCtmpfilepng;
 	private int modeValue = 1;
+	private ArrayList<String> ignoreFiles = new ArrayList<String>();
+	private ArrayList<String> ignoreFolders = new ArrayList<String>();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -77,15 +85,55 @@ public class frameReNamer {
 	
 	public void buttonConvertDirAction(ActionEvent e)
 	{
+		boolean fail = false;
 		
+		//vars
+		
+		String folderLocation = folderLocationTextField.getText();
 	}
 	
 	public void removeFolderFromIgnore(ActionEvent e)
 	{
+		String ignoreFolderString = ignoreFolderTextField.getText();
 		
+		
+		if(Arrays.asList(ignoreFolders).contains(ignoreFolderString))
+		{
+			ignoreFolders.remove(ignoreFolderString); 
+		}
 	}
 	
 	public void addFolderToIgnore(ActionEvent e)
+	{
+		String ignoreFolderString = ignoreFolderTextField.getText();
+		
+		ignoreFolders.add(ignoreFolderString);
+	}
+	
+	public void viewFolderInIgnore(ActionEvent e)
+	{
+		
+	}
+	
+	public void removeFileFromIgnore(ActionEvent e)
+	{
+		String ignoreFileString = ignoreFileTextField.getText();
+		
+		
+		if(Arrays.asList(ignoreFiles).contains(ignoreFileString))
+		{
+			ignoreFiles.remove(ignoreFileString); 
+		}
+	}
+	
+	public void addFileToIgnore(ActionEvent e)
+	{
+		String ignoreFileString = ignoreFileTextField.getText();
+		
+		ignoreFiles.add(ignoreFileString);
+	}
+	
+	public void viewFileInIgnore(ActionEvent e)
 	{
 		
 	}
@@ -289,7 +337,7 @@ public class frameReNamer {
 		frame.getContentPane().add(fileLocationTextField);
 		fileLocationTextField.setColumns(10);
 		
-		lblFileLocation = new JLabel("File Location:");
+		JLabel lblFileLocation = new JLabel("File Location:");
 		lblFileLocation.setBounds(6, 72, 90, 16);
 		frame.getContentPane().add(lblFileLocation);
 		
@@ -300,15 +348,15 @@ public class frameReNamer {
 	
 	public void createSceneTwo(JFrame frame)
 	{
-		fileLocationTextField = new JTextField();
-		fileLocationTextField.setText("/tmp/");
-		fileLocationTextField.setBounds(120, 66, 350, 28);
-		frame.getContentPane().add(fileLocationTextField);
-		fileLocationTextField.setColumns(10);
+		folderLocationTextField = new JTextField();
+		folderLocationTextField.setText("/tmp/");
+		folderLocationTextField.setBounds(120, 66, 350, 28);
+		frame.getContentPane().add(folderLocationTextField);
+		folderLocationTextField.setColumns(10);
 		
-		lblFileLocation = new JLabel("Folder Location:");
-		lblFileLocation.setBounds(6, 72, 120, 16);
-		frame.getContentPane().add(lblFileLocation);
+		JLabel  lblFolderLocation = new JLabel("Folder Location:");
+		lblFolderLocation.setBounds(6, 72, 120, 16);
+		frame.getContentPane().add(lblFolderLocation);
 		
 		lblExCtmpfilepng = new JLabel("Ex:  /tmp/main/file001.png  to /output/main_file001.png");
 		lblExCtmpfilepng.setBounds(6, 27, 450, 16);
@@ -337,11 +385,11 @@ public class frameReNamer {
 		
 		
 		
-		extTextField = new JTextField();
-		extTextField.setText(".git");
-		extTextField.setBounds(120, 186, 134, 28);
-		frame.getContentPane().add(extTextField);
-		extTextField.setColumns(10);
+		ignoreFolderTextField = new JTextField();
+		ignoreFolderTextField.setText(".git");
+		ignoreFolderTextField.setBounds(120, 186, 134, 28);
+		frame.getContentPane().add(ignoreFolderTextField);
+		ignoreFolderTextField.setColumns(10);
 		
 		JLabel lblExt = new JLabel("Folder ignore:");
 		lblExt.setBounds(6, 192, 120, 16);
@@ -356,7 +404,7 @@ public class frameReNamer {
 				
 			}
 		});
-		btnAdd.setBounds(251, 186, 90, 29);
+		btnAdd.setBounds(251, 186, 80, 29);
 		frame.getContentPane().add(btnAdd);
 		
 		JButton btnRemove = new JButton("Remove");
@@ -368,8 +416,84 @@ public class frameReNamer {
 				
 			}
 		});
-		btnRemove.setBounds(335, 186, 90, 29);
+		btnRemove.setBounds(322, 186, 80, 29);
 		frame.getContentPane().add(btnRemove);
+		
+		
+		JButton btnView = new JButton("View");
+		btnView.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				removeFolderFromIgnore(e) ;
+				
+			}
+		});
+		btnView.setBounds(393, 186, 80, 29);
+		frame.getContentPane().add(btnView);
+		
+		
+		
+		JButton btnAdd2 = new JButton("Add");
+		btnAdd2.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				addFolderToIgnore(e) ;
+				
+			}
+		});
+		btnAdd2.setBounds(251, 225, 80, 29);
+		frame.getContentPane().add(btnAdd2);
+		
+		JButton btnRemove2 = new JButton("Remove");
+		btnRemove2.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				removeFolderFromIgnore(e) ;
+				
+			}
+		});
+		btnRemove2.setBounds(322, 225, 80, 29);
+		frame.getContentPane().add(btnRemove2);
+		
+		
+		JButton btnView2 = new JButton("View");
+		btnView2.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				removeFolderFromIgnore(e) ;
+				
+			}
+		});
+		btnView2.setBounds(393, 225, 80, 29);
+		frame.getContentPane().add(btnView2);
+		
+		ignoreFileTextField = new JTextField();
+		ignoreFileTextField.setText("placeholder.txt");
+		ignoreFileTextField.setBounds(120, 225, 134, 28);
+		frame.getContentPane().add(ignoreFileTextField);
+		ignoreFileTextField.setColumns(10);
+		
+		
+		JLabel lblFileIgnore = new JLabel("File ignore:");
+		lblFileIgnore.setBounds(6, 230, 120, 16);
+		frame.getContentPane().add(lblFileIgnore);
+		
+		
+		
+		folderOutputTextField = new JTextField();
+		folderOutputTextField.setText("/output/tmp/");
+		folderOutputTextField.setBounds(120, 262, 350, 28);
+		frame.getContentPane().add(folderOutputTextField);
+		folderOutputTextField.setColumns(10);
+		
+		JLabel  lblOutputLocation = new JLabel("Output Location:");
+		lblOutputLocation.setBounds(6, 265, 120, 16);
+		frame.getContentPane().add(lblOutputLocation);
+		
 		
 		
 		JButton btnConvert = new JButton("Convert");
@@ -381,7 +505,7 @@ public class frameReNamer {
 				
 			}
 		});
-		btnConvert.setBounds(190, 226, 90, 29);
+		btnConvert.setBounds(190, 300, 90, 29);
 		frame.getContentPane().add(btnConvert);
 		
 	}
