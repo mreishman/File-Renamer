@@ -100,47 +100,83 @@ public class frameReNamer {
 	    {
 	        if (fileEntry.isDirectory() && !Arrays.asList(ignoreFolders).contains(fileEntry)) 
 	        {
-	        	copyFilesInFolder(fileEntry);
+	        	//check if dir is supposed to be ignored
+	        	Boolean dirIgnore = false;
+	        	if(ignoreFolders.size() > 0)
+	        	{
+	        		String nameOfFolder = fileEntry.getName();
+		        	for(int i = 0; i < ignoreFolders.size(); i++)
+		        	{
+		        		if(ignoreFolders.get(i).equals(nameOfFolder))
+		        		{
+		        			dirIgnore = true;
+		        			break;
+		        		}
+		        	}
+	        	}
+	        	
+	        	if(!dirIgnore)
+	        	{
+	        		copyFilesInFolder(fileEntry);
+	        	}
 	        }
 	        else 
 	        {
 	        	String filename = fileEntry.getName();
 	        	String filepath = fileEntry.getPath();
 	        	String fileIgnore = ".DS_Store";
-	        	if((!Arrays.asList(ignoreFiles).contains(filename)) && (!filename.equals(fileIgnore)))
+	        	if(!filename.equals(fileIgnore))
 	        	{
-	        		System.out.println(filename);
-	        		ArrayList<String> fileExplode = new ArrayList<String>(Arrays.asList(filepath.split(currentSplit)));
-	        		for(int i = 0; i < folderInputLocationExplode.size(); i++)
+	        		//check if in other file thing
+	        		
+	        		//check if dir is supposed to be ignored
+		        	Boolean dirIgnore = false;
+		        	if(ignoreFiles.size() > 0)
+		        	{
+			        	for(int i = 0; i < ignoreFiles.size(); i++)
+			        	{
+			        		if(ignoreFiles.get(i).equals(filename))
+			        		{
+			        			dirIgnore = true;
+			        			break;
+			        		}
+			        	}
+		        	}
+	        		if(!dirIgnore)
 	        		{
-	        			fileExplode.remove(0);
+			        	System.out.println(filename);
+		        		ArrayList<String> fileExplode = new ArrayList<String>(Arrays.asList(filepath.split(currentSplit)));
+		        		for(int i = 0; i < folderInputLocationExplode.size(); i++)
+		        		{
+		        			fileExplode.remove(0);
+		        		}
+		        		String newFileName = "";
+		        		Boolean first = true;
+		        		for(int i = 0; i < fileExplode.size(); i++)
+		        		{
+		        			if(!first)
+		        			{
+		        				newFileName += newSplit;
+		        			}
+		        			else
+		        			{
+		        				first = false;
+		        			}
+		        			newFileName += fileExplode.get(i);
+		        		}
+		        		newFileName = folderOutputLocation + newFileName;
+		        		System.out.println(newFileName);
+		        		File filepathfile = new File(filepath);
+		        		File filepathNew = new File(newFileName);
+		        		try 
+		        		{
+							FileUtils.copyFile(filepathfile, filepathNew);
+						}
+		        		catch (IOException e)
+		        		{
+							e.printStackTrace();
+						}
 	        		}
-	        		String newFileName = "";
-	        		Boolean first = true;
-	        		for(int i = 0; i < fileExplode.size(); i++)
-	        		{
-	        			if(!first)
-	        			{
-	        				newFileName += newSplit;
-	        			}
-	        			else
-	        			{
-	        				first = false;
-	        			}
-	        			newFileName += fileExplode.get(i);
-	        		}
-	        		newFileName = folderOutputLocation + newFileName;
-	        		System.out.println(newFileName);
-	        		File filepathfile = new File(filepath);
-	        		File filepathNew = new File(newFileName);
-	        		try 
-	        		{
-						FileUtils.copyFile(filepathfile, filepathNew);
-					}
-	        		catch (IOException e)
-	        		{
-						e.printStackTrace();
-					}
 	        	}
 	        }
 	    }
