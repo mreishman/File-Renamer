@@ -599,19 +599,19 @@ public class frameReNamer {
 		btnRemove.setBounds(322, 186, 80, 29);
 		frame.getContentPane().add(btnRemove);
 		
-		/*
+		
 		JButton btnView = new JButton("View");
 		btnView.addActionListener(new ActionListener() 
 		{
 
 			public void actionPerformed(ActionEvent e) {
-				removeFolderFromIgnore(e) ;
+				viewFolderInIgnore(e) ;
 				
 			}
 		});
 		btnView.setBounds(393, 186, 80, 29);
 		frame.getContentPane().add(btnView);
-		*/
+		
 		
 		
 		JButton btnAdd2 = new JButton("Add");
@@ -638,19 +638,19 @@ public class frameReNamer {
 		btnRemove2.setBounds(322, 225, 80, 29);
 		frame.getContentPane().add(btnRemove2);
 		
-		/*
+		
 		JButton btnView2 = new JButton("View");
 		btnView2.addActionListener(new ActionListener() 
 		{
 
 			public void actionPerformed(ActionEvent e) {
-				removeFolderFromIgnore(e) ;
+				viewFileInIgnore(e) ;
 				
 			}
 		});
 		btnView2.setBounds(393, 225, 80, 29);
 		frame.getContentPane().add(btnView2);
-		*/
+		
 		ignoreFileTextField = new JTextField();
 		ignoreFileTextField.setText("placeholder.txt");
 		ignoreFileTextField.setBounds(120, 225, 134, 28);
@@ -687,19 +687,19 @@ public class frameReNamer {
 		btnRemove3.setBounds(322, 146, 80, 29);
 		frame.getContentPane().add(btnRemove3);
 		
-		/*
+		
 		JButton btnView3 = new JButton("View");
 		btnView3.addActionListener(new ActionListener() 
 		{
 
 			public void actionPerformed(ActionEvent e) {
-				removeFileTypeFromIgnore(e) ;
+				viewFileTypeInIgnore(e) ;
 				
 			}
 		});
 		btnView3.setBounds(393, 146, 80, 29);
 		frame.getContentPane().add(btnView3);
-		*/
+		
 		
 		ignoreFileTypeTextField = new JTextField();
 		ignoreFileTypeTextField.setText(".txt");
