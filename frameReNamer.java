@@ -19,6 +19,7 @@ public class frameReNamer {
 	private JTextField directoryIndicatorTextField;
 	private JTextField folderLocationTextField;
 	private JTextField dirReplaceCharTextField;
+	private JTextField ignoreFileTypeTextField;
 	private JTextField paddingTextField;
 	private JTextField extTextField;
 	private JTextField ignoreFolderTextField;
@@ -217,6 +218,34 @@ public class frameReNamer {
 			
 	}
 	
+	public void removeFileTypeFromIgnore(ActionEvent e)
+	{
+		String ignoreFileTypeString = ignoreFileTypeTextField.getText();
+		
+		for(int i = 0; i < ignoreFileType.size(); i++)
+		{
+			if(ignoreFileType.get(i).equals(ignoreFileTypeString))
+			{
+				ignoreFileType.remove(ignoreFileTypeString); 
+				System.out.println(ignoreFileTypeString + " Removed");
+				break;
+			}
+		}
+	}
+	
+	public void addFileTypeToIgnore(ActionEvent e)
+	{
+		String ignoreFileTypeString = ignoreFileTypeTextField.getText();
+		
+		ignoreFileType.add(ignoreFileTypeString);
+		System.out.println(ignoreFileTypeString + " Added");
+	}
+	
+	public void viewFileTypeInIgnore(ActionEvent e)
+	{
+		
+	}
+	
 	public void removeFolderFromIgnore(ActionEvent e)
 	{
 		String ignoreFolderString = ignoreFolderTextField.getText();
@@ -227,6 +256,7 @@ public class frameReNamer {
 			{
 				ignoreFolders.remove(ignoreFolderString); 
 				System.out.println(ignoreFolderString + " Removed");
+				break;
 			}
 		}
 	}
@@ -254,6 +284,7 @@ public class frameReNamer {
 			{
 				ignoreFiles.remove(ignoreFileString); 
 				System.out.println(ignoreFileString + " Removed");
+				break;
 			}
 		}
 	}
@@ -616,6 +647,55 @@ public class frameReNamer {
 		lblFileIgnore.setBounds(6, 230, 120, 16);
 		frame.getContentPane().add(lblFileIgnore);
 		
+		
+		JButton btnAdd3 = new JButton("Add");
+		btnAdd3.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				addFileTypeToIgnore(e) ;
+				
+			}
+		});
+		btnAdd3.setBounds(251, 146, 80, 29);
+		frame.getContentPane().add(btnAdd3);
+		
+		JButton btnRemove3 = new JButton("Remove");
+		btnRemove3.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				removeFileTypeFromIgnore(e) ;
+				
+			}
+		});
+		btnRemove3.setBounds(322, 146, 80, 29);
+		frame.getContentPane().add(btnRemove3);
+		
+		/*
+		JButton btnView3 = new JButton("View");
+		btnView3.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) {
+				removeFileTypeFromIgnore(e) ;
+				
+			}
+		});
+		btnView3.setBounds(393, 146, 80, 29);
+		frame.getContentPane().add(btnView3);
+		*/
+		
+		ignoreFileTypeTextField = new JTextField();
+		ignoreFileTypeTextField.setText(".txt");
+		ignoreFileTypeTextField.setBounds(120, 146, 134, 28);
+		frame.getContentPane().add(ignoreFileTypeTextField);
+		ignoreFileTypeTextField.setColumns(10);
+		
+		
+		JLabel lblFiletypeIgnore = new JLabel("File-type ignore:");
+		lblFiletypeIgnore.setBounds(6, 152, 120, 16);
+		frame.getContentPane().add(lblFiletypeIgnore);
 		
 		
 		folderOutputTextField = new JTextField();
