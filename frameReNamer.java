@@ -93,12 +93,13 @@ public class frameReNamer {
 	        }
 	        else 
 	        {
-	        	String filename = fileEntry.getName();getClass();
+	        	String filename = fileEntry.getName();
+	        	String filepath = fileEntry.getPath();
 	        	String fileIgnore = ".DS_Store";
-	        	
-	        	if(!Arrays.asList(ignoreFiles).contains(filename) && !filename.equals(fileIgnore));
+	        	if((!Arrays.asList(ignoreFiles).contains(filename)) && (!filename.equals(fileIgnore)))
 	        	{
 	        		System.out.println(filename);
+	        		System.out.println(filepath);
 	        	}
 	        }
 	    }
