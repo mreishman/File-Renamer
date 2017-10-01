@@ -19,7 +19,7 @@ public class frameReNamer {
 	private JTextField fileLocationTextField;
 	private JLabel lblFileLocation;
 	private JLabel lblExCtmpfilepng;
-
+	private int modeValue = 1;
 	/**
 	 * Launch the application.
 	 */
@@ -196,6 +196,10 @@ public class frameReNamer {
 	
 	public void createSceneOne(JFrame frame)
 	{
+		
+		final JPanel panel = new JPanel();
+		frame.add(panel);
+		
 		JLabel lblFileName = new JLabel("File Name:");
 		lblFileName.setBounds(6, 112, 73, 16);
 		frame.getContentPane().add(lblFileName);
@@ -282,6 +286,17 @@ public class frameReNamer {
 		lblExCtmpfilepng.setBounds(91, 27, 270, 16);
 		frame.getContentPane().add(lblExCtmpfilepng);
 	}
+	
+	public void createSceneTwo(JFrame frame)
+	{
+		
+	}
+	
+	public void clearScreen(JFrame frame)
+	{
+		frame.getContentPane().removeAll();
+		frame.repaint();
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -302,23 +317,23 @@ public class frameReNamer {
 		
 		JMenu file = new JMenu("File");
 		JMenu helpMain = new JMenu("Help");
-		//JMenu modeMain = new JMenu("Mode");
+		JMenu modeMain = new JMenu("Mode");
 		
 		menuBar.add(file);
 		menuBar.add(helpMain);
-		//menuBar.add(modeMain);
+		menuBar.add(modeMain);
 		
 		JMenuItem exit = new JMenuItem("Exit");
 		
 		JMenuItem about = new JMenuItem("About");
 		//JMenuItem help = new JMenuItem("Help");
 		
-		//JMenuItem mode = new JMenuItem("Switch Mode");
+		JMenuItem mode = new JMenuItem("Switch Mode");
 		
 		file.add(exit);
 		helpMain.add(about);
 		//helpMain.add(help);
-		//modeMain.add(mode);
+		modeMain.add(mode);
 		
 		class exitAction implements ActionListener
 		{
@@ -337,5 +352,27 @@ public class frameReNamer {
 			}			
 		}
 		about.addActionListener(new aboutAction());
+		
+		class modeSwitch implements ActionListener
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				//clear screen
+				clearScreen(frame);
+				
+				if(modeValue == 1)
+				{
+					createSceneTwo(frame);
+					modeValue = 2;
+				}
+				else
+				{
+					createSceneOne(frame);
+					modeValue = 1;
+				}
+			}
+		}
+		
+		mode.addActionListener(new modeSwitch());
 	}
 }
