@@ -131,20 +131,35 @@ public class frameReNamer {
 	        	{
 	        		//check if in other file thing
 	        		
-	        		//check if dir is supposed to be ignored
-		        	Boolean dirIgnore = false;
+	        		//check if file is supposed to be ignored
+		        	Boolean fileIgnore1 = false;
 		        	if(ignoreFiles.size() > 0)
 		        	{
 			        	for(int i = 0; i < ignoreFiles.size(); i++)
 			        	{
 			        		if(ignoreFiles.get(i).equals(filename))
 			        		{
-			        			dirIgnore = true;
+			        			fileIgnore1 = true;
 			        			break;
 			        		}
 			        	}
 		        	}
-	        		if(!dirIgnore)
+		        	if(!fileIgnore1)
+		        	{
+		        		if(ignoreFileType.size() > 0)
+			        	{
+				        	for(int i = 0; i < ignoreFileType.size(); i++)
+				        	{
+				        		if(filename.endsWith(ignoreFileType.get(i)))
+				        		{
+				        			fileIgnore1 = true;
+				        			break;
+				        		}
+				        	}
+			        	}
+		        	}
+		        	
+	        		if(!fileIgnore1)
 	        		{
 			        	System.out.println(filename);
 		        		ArrayList<String> fileExplode = new ArrayList<String>(Arrays.asList(filepath.split(currentSplit)));
@@ -782,7 +797,7 @@ public class frameReNamer {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				JOptionPane.showMessageDialog(frame,"File Re-namer V2.0 \nProgram by Matt Reishman \nLast update: 10/1/2017");				
+				JOptionPane.showMessageDialog(frame,"File Re-namer V2.1 \nProgram by Matt Reishman \nLast update: 10/1/2017");				
 			}			
 		}
 		about.addActionListener(new aboutAction());
