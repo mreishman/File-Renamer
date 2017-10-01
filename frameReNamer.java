@@ -13,7 +13,9 @@ public class frameReNamer {
 
 	private JFrame frame;
 	private JTextField fileNameTextField;
+	private JTextField directoryIndicatorTextField;
 	private JTextField folderLocationTextField;
+	private JTextField dirReplaceCharTextField;
 	private JTextField paddingTextField;
 	private JTextField extTextField;
 	private JTextField ignoreFolderTextField;
@@ -83,13 +85,19 @@ public class frameReNamer {
 		initialize();
 	}
 	
-	public void listFilesForFolder(final File folder) 
+	public void copyFilesInFolder(final File folder) 
 	{
+		String currentSplit = directoryIndicatorTextField.getText();
+		String newSplit = dirReplaceCharTextField.getText();
+		String folderInputLocation = folderLocationTextField.getText();
+		String folderOutputLocation = folderOutputTextField.getText();
+		ArrayList<String> folderInputLocationExplode = new ArrayList<String>(Arrays.asList(folderInputLocation.split(currentSplit)));
+		
 	    for (final File fileEntry : folder.listFiles()) 
 	    {
 	        if (fileEntry.isDirectory() && !Arrays.asList(ignoreFolders).contains(fileEntry)) 
 	        {
-	            listFilesForFolder(fileEntry);
+	        	copyFilesInFolder(fileEntry);
 	        }
 	        else 
 	        {
@@ -99,7 +107,27 @@ public class frameReNamer {
 	        	if((!Arrays.asList(ignoreFiles).contains(filename)) && (!filename.equals(fileIgnore)))
 	        	{
 	        		System.out.println(filename);
-	        		System.out.println(filepath);
+	        		ArrayList<String> fileExplode = new ArrayList<String>(Arrays.asList(filepath.split(currentSplit)));
+	        		for(int i = 0; i < folderInputLocationExplode.size(); i++)
+	        		{
+	        			fileExplode.remove(0);
+	        		}
+	        		String newFileName = "";
+	        		Boolean first = true;
+	        		for(int i = 0; i < fileExplode.size(); i++)
+	        		{
+	        			if(!first)
+	        			{
+	        				newFileName += newSplit;
+	        			}
+	        			else
+	        			{
+	        				first = false;
+	        			}
+	        			newFileName += fileExplode.get(i);
+	        		}
+	        		newFileName = folderOutputLocation + newFileName;
+	        		System.out.println(newFileName);
 	        	}
 	        }
 	    }
@@ -122,7 +150,7 @@ public class frameReNamer {
 		
 		if ((folderInput.exists() && folderInput.isDirectory()) && (folderOutput.exists() && folderOutput.isDirectory()))
 		{
-			listFilesForFolder(folderInput);
+			copyFilesInFolder(folderInput);
 		}
 		else
 		{
@@ -305,7 +333,8 @@ public class frameReNamer {
 	}
 	
 	public void createSceneOne(JFrame frame)
-	{		
+	{
+		frame.setTitle("Text Re-Namer");
 		JLabel lblFileName = new JLabel("File Name:");
 		lblFileName.setBounds(6, 112, 73, 16);
 		frame.getContentPane().add(lblFileName);
@@ -395,6 +424,7 @@ public class frameReNamer {
 	
 	public void createSceneTwo(JFrame frame)
 	{
+		frame.setTitle("File Path Expand Re-Namer");
 		folderLocationTextField = new JTextField();
 		folderLocationTextField.setText("/tmp/");
 		folderLocationTextField.setBounds(120, 66, 350, 28);
@@ -413,18 +443,18 @@ public class frameReNamer {
 		lblFileName.setBounds(6, 112, 120, 16);
 		frame.getContentPane().add(lblFileName);
 		
-		fileNameTextField = new JTextField();
-		fileNameTextField.setText("/");
-		fileNameTextField.setBounds(120, 106, 134, 28);
-		frame.getContentPane().add(fileNameTextField);
-		fileNameTextField.setColumns(10);
+		directoryIndicatorTextField = new JTextField();
+		directoryIndicatorTextField.setText("/");
+		directoryIndicatorTextField.setBounds(120, 106, 134, 28);
+		frame.getContentPane().add(directoryIndicatorTextField);
+		directoryIndicatorTextField.setColumns(10);
 		
 		
-		paddingTextField = new JTextField();
-		paddingTextField.setText("_");
-		paddingTextField.setBounds(120, 146, 134, 28);
-		frame.getContentPane().add(paddingTextField);
-		paddingTextField.setColumns(10);
+		dirReplaceCharTextField = new JTextField();
+		dirReplaceCharTextField.setText("_");
+		dirReplaceCharTextField.setBounds(120, 146, 134, 28);
+		frame.getContentPane().add(dirReplaceCharTextField);
+		dirReplaceCharTextField.setColumns(10);
 		
 		JLabel lblPadding = new JLabel("Dir Replace Char.");
 		lblPadding.setBounds(6, 152, 120, 16);
@@ -466,7 +496,7 @@ public class frameReNamer {
 		btnRemove.setBounds(322, 186, 80, 29);
 		frame.getContentPane().add(btnRemove);
 		
-		
+		/*
 		JButton btnView = new JButton("View");
 		btnView.addActionListener(new ActionListener() 
 		{
@@ -478,7 +508,7 @@ public class frameReNamer {
 		});
 		btnView.setBounds(393, 186, 80, 29);
 		frame.getContentPane().add(btnView);
-		
+		*/
 		
 		
 		JButton btnAdd2 = new JButton("Add");
@@ -505,7 +535,7 @@ public class frameReNamer {
 		btnRemove2.setBounds(322, 225, 80, 29);
 		frame.getContentPane().add(btnRemove2);
 		
-		
+		/*
 		JButton btnView2 = new JButton("View");
 		btnView2.addActionListener(new ActionListener() 
 		{
@@ -517,7 +547,7 @@ public class frameReNamer {
 		});
 		btnView2.setBounds(393, 225, 80, 29);
 		frame.getContentPane().add(btnView2);
-		
+		*/
 		ignoreFileTextField = new JTextField();
 		ignoreFileTextField.setText("placeholder.txt");
 		ignoreFileTextField.setBounds(120, 225, 134, 28);
@@ -572,7 +602,6 @@ public class frameReNamer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		frame.setTitle("Text Re-Namer");
 		
 		final JPanel panel = new JPanel();
 		frame.add(panel);
@@ -616,7 +645,7 @@ public class frameReNamer {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				JOptionPane.showMessageDialog(frame,"File Re-namer V2.0 \nProgram by Matt Reishman \nLast update: 9/30/2017");				
+				JOptionPane.showMessageDialog(frame,"File Re-namer V2.0 \nProgram by Matt Reishman \nLast update: 10/1/2017");				
 			}			
 		}
 		about.addActionListener(new aboutAction());
