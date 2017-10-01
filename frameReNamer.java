@@ -4,8 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.*;
 
+import org.apache.commons.io.FileUtils;
+
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -128,6 +131,16 @@ public class frameReNamer {
 	        		}
 	        		newFileName = folderOutputLocation + newFileName;
 	        		System.out.println(newFileName);
+	        		File filepathfile = new File(filepath);
+	        		File filepathNew = new File(newFileName);
+	        		try 
+	        		{
+						FileUtils.copyFile(filepathfile, filepathNew);
+					}
+	        		catch (IOException e)
+	        		{
+						e.printStackTrace();
+					}
 	        	}
 	        }
 	    }
