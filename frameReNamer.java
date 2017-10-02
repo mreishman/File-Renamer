@@ -81,6 +81,23 @@ public class frameReNamer {
 		}
 		return paddingTextCalc;
 	}
+	
+	public Boolean isThingInArray(ArrayList<String> arrayToScan, String thingToFind)
+	{
+		Boolean thingFound = false;
+		if(arrayToScan.size() > 0)
+    	{
+        	for(int i = 0; i < arrayToScan.size(); i++)
+        	{
+        		if(arrayToScan.get(i).equals(thingToFind))
+        		{
+        			thingFound = true;
+        			break;
+        		}
+        	}
+    	}
+		return thingFound;
+	}
 
 	/**
 	 * Create the application.
@@ -102,22 +119,8 @@ public class frameReNamer {
 	    {
 	        if (fileEntry.isDirectory() && !Arrays.asList(ignoreFolders).contains(fileEntry)) 
 	        {
-	        	//check if dir is supposed to be ignored
-	        	Boolean dirIgnore = false;
-	        	if(ignoreFolders.size() > 0)
-	        	{
-	        		String nameOfFolder = fileEntry.getName();
-		        	for(int i = 0; i < ignoreFolders.size(); i++)
-		        	{
-		        		if(ignoreFolders.get(i).equals(nameOfFolder))
-		        		{
-		        			dirIgnore = true;
-		        			break;
-		        		}
-		        	}
-	        	}
-	        	
-	        	if(!dirIgnore)
+	        	//check if dir is supposed to be ignored   	
+	        	if(!isThingInArray(ignoreFolders, fileEntry.getName()))
 	        	{
 	        		copyFilesInFolder(fileEntry);
 	        	}
@@ -133,33 +136,20 @@ public class frameReNamer {
 	        		
 	        		//check if file is supposed to be ignored
 		        	Boolean fileIgnore1 = false;
-		        	if(ignoreFiles.size() > 0)
+		        	
+	        		if(ignoreFileType.size() > 0)
 		        	{
-			        	for(int i = 0; i < ignoreFiles.size(); i++)
+			        	for(int i = 0; i < ignoreFileType.size(); i++)
 			        	{
-			        		if(ignoreFiles.get(i).equals(filename))
+			        		if(filename.endsWith(ignoreFileType.get(i)))
 			        		{
 			        			fileIgnore1 = true;
 			        			break;
 			        		}
 			        	}
 		        	}
-		        	if(!fileIgnore1)
-		        	{
-		        		if(ignoreFileType.size() > 0)
-			        	{
-				        	for(int i = 0; i < ignoreFileType.size(); i++)
-				        	{
-				        		if(filename.endsWith(ignoreFileType.get(i)))
-				        		{
-				        			fileIgnore1 = true;
-				        			break;
-				        		}
-				        	}
-			        	}
-		        	}
 		        	
-	        		if(!fileIgnore1)
+	        		if(!fileIgnore1 && !isThingInArray(ignoreFiles, filename))
 	        		{
 			        	System.out.println(filename);
 		        		ArrayList<String> fileExplode = new ArrayList<String>(Arrays.asList(filepath.split(currentSplit)));
@@ -251,9 +241,15 @@ public class frameReNamer {
 	public void addFileTypeToIgnore(ActionEvent e)
 	{
 		String ignoreFileTypeString = ignoreFileTypeTextField.getText();
-		
-		ignoreFileType.add(ignoreFileTypeString);
-		System.out.println(ignoreFileTypeString + " Added");
+		if(!isThingInArray(ignoreFileType, ignoreFileTypeString))
+		{
+			ignoreFileType.add(ignoreFileTypeString);
+			System.out.println(ignoreFileTypeString + " Added");
+		}
+		else
+		{
+			//show popup
+		}
 	}
 	
 	public void viewFileTypeInIgnore(ActionEvent e)
@@ -279,9 +275,15 @@ public class frameReNamer {
 	public void addFolderToIgnore(ActionEvent e)
 	{
 		String ignoreFolderString = ignoreFolderTextField.getText();
-		
-		ignoreFolders.add(ignoreFolderString);
-		System.out.println(ignoreFolderString + " Added");
+		if(!isThingInArray(ignoreFolders, ignoreFolderString))
+		{
+			ignoreFolders.add(ignoreFolderString);
+			System.out.println(ignoreFolderString + " Added");
+		}
+		else
+		{
+			//show popup
+		}
 	}
 	
 	public void viewFolderInIgnore(ActionEvent e)
@@ -307,9 +309,15 @@ public class frameReNamer {
 	public void addFileToIgnore(ActionEvent e)
 	{
 		String ignoreFileString = ignoreFileTextField.getText();
-		
-		ignoreFiles.add(ignoreFileString);
-		System.out.println(ignoreFileString + " Added");
+		if(!isThingInArray(ignoreFiles, ignoreFileString))
+		{
+			ignoreFiles.add(ignoreFileString);
+			System.out.println(ignoreFileString + " Added");
+		}
+		else
+		{
+			//ignore popup
+		}
 	}
 	
 	public void viewFileInIgnore(ActionEvent e)
