@@ -238,6 +238,12 @@ public class frameReNamer {
 		}
 	}
 	
+	public void showNoticeAlreadyInArray()
+	{
+		JOptionPane.showMessageDialog(frame,
+			    "This has already been added.");
+	}
+	
 	public void addFileTypeToIgnore(ActionEvent e)
 	{
 		String ignoreFileTypeString = ignoreFileTypeTextField.getText();
@@ -248,6 +254,7 @@ public class frameReNamer {
 		}
 		else
 		{
+			showNoticeAlreadyInArray();
 			//show popup
 		}
 	}
@@ -282,6 +289,7 @@ public class frameReNamer {
 		}
 		else
 		{
+			showNoticeAlreadyInArray();
 			//show popup
 		}
 	}
@@ -316,6 +324,7 @@ public class frameReNamer {
 		}
 		else
 		{
+			showNoticeAlreadyInArray();
 			//ignore popup
 		}
 	}
