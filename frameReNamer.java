@@ -1,4 +1,4 @@
-package fileReNamer;
+package filerenamer;
 
 import java.awt.EventQueue;
 
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class frameReNamer {
+public class FrameReNamer {
 
 	private JFrame frame;
 	private JTextField fileNameTextField;
@@ -46,7 +46,7 @@ public class frameReNamer {
 			{
 				try 
 				{
-					frameReNamer window = new frameReNamer();
+					FrameReNamer window = new FrameReNamer();
 					window.frame.setVisible(true);
 				}
 				catch (Exception e) 
@@ -102,7 +102,7 @@ public class frameReNamer {
 	/**
 	 * Create the application.
 	 */
-	public frameReNamer() 
+	public FrameReNamer() 
 	{
 		initialize();
 	}
