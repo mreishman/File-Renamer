@@ -203,8 +203,21 @@ public class FrameReNamer {
 		File folderOutput = null;
 		folderOutput = new File(folderOutputLocation);
 		
+		Boolean outputDirIsThere = true;
 		
-		if ((folderInput.exists() && folderInput.isDirectory()) && (folderOutput.exists() && folderOutput.isDirectory()))
+		if(!(folderOutput.exists() && folderOutput.isDirectory()))
+		{
+			try
+			{
+				folderOutput.mkdir();
+		    } 
+		    catch(SecurityException se)
+			{
+		    	outputDirIsThere = false;
+		    } 
+		}
+		
+		if ((folderInput.exists() && folderInput.isDirectory()) && outputDirIsThere)
 		{
 			copyFilesInFolder(folderInput);
 		}
